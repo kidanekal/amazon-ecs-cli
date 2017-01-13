@@ -18,7 +18,6 @@ import (
 	"path/filepath"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/aws/amazon-ecs-cli/ecs-cli/utils"
 )
 
 // Destination stores the config destination path to write to and the permissions to create the
@@ -42,7 +41,8 @@ func GetFilePermissions(fileName string) (*os.FileMode, error) {
 
 // newDefaultDestination creates a new Destination object.
 func newDefaultDestination() (*Destination, error) {
-	homeDir, err := utils.GetHomeDir()
+	//get the current working directory to store ecs configs
+	homeDir, err := os.Getwd()
 	if err != nil {
 		return nil, err
 	}
